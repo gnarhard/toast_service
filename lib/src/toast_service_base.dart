@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kDebugMode;
+import 'package:flutter/material.dart' show Colors, Color;
 import 'package:fluttertoast/fluttertoast.dart';
 
 /// 🍞
@@ -25,13 +25,7 @@ class ToastService {
     this.colorWarningText = Colors.black54,
   });
 
-  void error(
-      {required String message,
-      String? devError,
-      response,
-      required BuildContext context}) {
-    final Fluttertoast toast = Fluttertoast();
-
+  void error({required String message, String? devError, response}) {
     if (Platform.environment.containsKey('FLUTTER_TEST')) {
       return;
     }
