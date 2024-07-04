@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter/foundation.dart' show kDebugMode;
+import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:flutter/material.dart' show Colors, Color;
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -25,18 +25,16 @@ class ToastService {
     this.colorWarningText = Colors.black54,
   });
 
-  void error({required String message, String? devError, response}) {
+  void error(String message, {String? devError, response}) {
     if (Platform.environment.containsKey('FLUTTER_TEST')) {
       return;
     }
 
-    if (kDebugMode) {
-      message = (devError == null) ? message : "$message $devError";
-      message = (response == null)
-          ? message
-          : "$message ${response.statusCode}: ${response.reasonPhrase}";
-      print(message);
-    }
+    message = (devError == null) ? message : "$message $devError";
+    message = (response == null)
+        ? message
+        : "$message ${response.statusCode}: ${response.reasonPhrase}";
+    debugPrint(message);
 
     Fluttertoast.showToast(
         msg: message,
@@ -48,13 +46,12 @@ class ToastService {
         fontSize: 16.0);
   }
 
-  void success({required message}) {
+  void success(String message) {
     if (Platform.environment.containsKey('FLUTTER_TEST')) {
       return;
     }
-    if (kDebugMode) {
-      print(message);
-    }
+
+    debugPrint(message);
 
     Fluttertoast.showToast(
         msg: message,
@@ -66,13 +63,12 @@ class ToastService {
         fontSize: 16.0);
   }
 
-  void warning({required message}) {
+  void warning(String message) {
     if (Platform.environment.containsKey('FLUTTER_TEST')) {
       return;
     }
-    if (kDebugMode) {
-      print(message);
-    }
+
+    debugPrint(message);
 
     Fluttertoast.showToast(
         msg: message,
